@@ -56,9 +56,11 @@ router.get('/api/workouts/range', (req, res) => {
 
   db.Workout.aggregate([
     {
-      // TODO: use $addField to add 'totalDuration'
-      // TODO: use $sum to create the sum for totalDuration
-
+      $addFields: {
+        totalDuration: {
+          $sum: '$duration'
+        }
+      }
     },
   ])
     .sort({ _id: -1 })
